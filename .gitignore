@@ -1,0 +1,12 @@
+backups/
+auto-save-list/
+*.elc
+ido.last
+ac-comphist.dat
+*~
+~*
+.*
+!.gitignore
+#*#
+*#
+#*
