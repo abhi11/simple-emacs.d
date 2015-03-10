@@ -8,4 +8,9 @@
 * Start your emacs.
 
 ###List of packages configured.###
->> To be done
+* auto-complete
+* YASnippet
+* Markdown-mode
+* Magit
+* cider
+* zenburn theme
