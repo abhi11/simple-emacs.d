@@ -86,6 +86,11 @@
 (add-to-list 'load-path "~/.emacs.d/elpa/cider-20141116.1221")
 (require 'cider)
 
+;; Setting up web-mode
+(add-to-list 'load-path "~/.emacs.d/elpa/web-mode")
+(require 'web-mode)
+(setq web-mode-markup-indent-offset 2)
+
 ;;Appending auto-mode-alist with other extensions
 (setq auto-mode-alist
       (append
@@ -93,5 +98,6 @@
        '(("\\.php\\'" . php-mode)
 	 ("\\.md\\'" . markdown-mode)
 	 ("\\.markdown\\'" . markdown-mode)
-	 ("\\.kv\\'". python-mode))
+	 ("\\.kv\\'". python-mode)
+	 ("\\.html?\\'" . web-mode))
        auto-mode-alist))
