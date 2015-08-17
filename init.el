@@ -91,6 +91,9 @@
 (require 'web-mode)
 (setq web-mode-markup-indent-offset 2)
 
+;; Splitting pop-up vertically
+(setq split-width-threshold 0)
+
 ;;Appending auto-mode-alist with other extensions
 (setq auto-mode-alist
       (append
