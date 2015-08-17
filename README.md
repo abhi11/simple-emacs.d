@@ -1,4 +1,5 @@
 ##Simple Emacs configuration##
+####Emacs 24
 
 ###Clone it to your system and start using###
 
