@@ -1,7 +1,7 @@
 (setq package-archives
       '(
-        ("marmalade" . "http://marmalade-repo.org/packages/")
-        ("elpa" . "http://tromey.com/elpa/")
+	;;("marmalade" . "http://marmalade-repo.org/packages/")
+        ;;("elpa" . "http://tromey.com/elpa/")
         ("melpa" . "http://melpa.milkbox.net/packages/")
         ("gnu" . "http://elpa.gnu.org/packages/")
         ))
@@ -45,7 +45,7 @@
 (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
 
 ;;apply theme
-(load-file  "~/.emacs.d/elpa/zenburn-0.1/zenburn.el")
+(load-file  "~/.emacs.d/elpa/zenburn-1.8/zenburn.el")
 (zenburn)
 
 ;;Enable ido mode
@@ -59,31 +59,12 @@
 (global-auto-complete-mode t)
 
 ;;YASnippets
-;;Loading YAsnippet
 (add-to-list 'load-path
-	     "~/.emacs.d/elpa/yasnippet-0.8.0")
-
+	     "~/.emacs.d/elpa/yasnippet-20150912.1330")
+;;Loading YAsnippet
 (require 'yasnippet) ;; not yasnippet-bundle
-(yas--initialize)
-(yas/load-directory "~/.emacs.d/elpa/yasnippet-0.8.0/snippets")
-
-;;Magit setup
-(add-to-list 'load-path "~/.emacs.d/elpa/magit-20141025.429")
-(require 'magit)
-
-;;keybinding for magit entry point(magit-status)
-;; more later as start getting familiar
-(global-set-key (kbd "C-x g") 'magit-status)
-
-;;keybinding for compile command
-(global-set-key (kbd "C-x c") 'compile)
-
-;;Setting emacs path
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
-(setq exec-path (append exec-path '("/usr/local/bin")))
-
-;;setting up cider
-(add-to-list 'load-path "~/.emacs.d/elpa/cider-20141116.1221")
+(yas/initialize)
+(yas/load-directory "~/.emacs.d/elpa/yasnippet-20150912.1330/snippets")
 (require 'cider)
 
 ;; Setting up web-mode
@@ -92,6 +73,7 @@
 (setq web-mode-markup-indent-offset 2)
 
 ;; Splitting pop-up vertically
+(setq split-height-threshold nil)
 (setq split-width-threshold 0)
 
 ;;Appending auto-mode-alist with other extensions
@@ -102,5 +84,23 @@
 	 ("\\.md\\'" . markdown-mode)
 	 ("\\.markdown\\'" . markdown-mode)
 	 ("\\.kv\\'". python-mode)
-	 ("\\.html?\\'" . web-mode))
+	 ("\\.html?\\'" . web-mode)
+	 ("\\.go'" . go-mode))
        auto-mode-alist))
+
+
+;;;;;;; Go setup ;;;;;;;
+
+;; Set GOPATH and exec-path for go binaries
+(setenv "GOPATH" "/home/bhatta/work-fun/workspace/gospace")
+(setq exec-path (cons "/usr/local/go/bin" exec-path))
+(setq exec-path (cons "/home/bhatta/work-fun/workspace/gospace/bin" exec-path))
+
+(add-to-list 'load-path "~/.emacs.d/elpa/company-go-20150903.1944")
+(add-hook 'go-mode-hook 'company-mode)
+(add-hook 'go-mode-hook
+	  (lambda ()
+	    (set (make-local-variable 'company-backends) '(company-go))
+	    (company-mode)))
+
+;; add key binding for gofmt
