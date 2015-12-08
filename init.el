@@ -101,6 +101,29 @@
 (add-hook 'go-mode-hook
 	  (lambda ()
 	    (set (make-local-variable 'company-backends) '(company-go))
-	    (company-mode)))
+	    (company-mode)
+	    (local-set-key (kbd "M-.") 'godef-jump)
+	    (add-hook 'before-save-hook 'gofmt-before-save)
+	    (local-set-key (kbd "C-c C-f") 'gofmt)
+	    ;; Customize compile command to run go build
+	    (if (not (string-match "go" compile-command))
+		(set (make-local-variable 'compile-command)
+		     "go generate && go build -v && go test -v && go vet"))))
 
-;; add key binding for gofmt
+;; JavaScript Setup
+(add-to-list 'load-path "~/.emacs.d/elpa/js2-mode-20151105.355")
+(add-to-list 'load-path "~/.emacs.d/elpa/js2-refactor-20151029.507")
+(add-to-list 'load-path "~/.emacs.d/elpa/tern-20150830.1256")
+(add-to-list 'load-path "~/.emacs.d/elpa/tern-auto-complete-20150611.639")
+
+(setq exec-path (cons "/home/bhatta/node/bin" exec-path))
+
+(add-hook 'js-mode-hook 'js2-minor-mode)
+(add-hook 'js2-mode-hook 'ac-js2-mode)
+(setq js2-highlight-level 3)
+
+(add-hook 'js-mode-hook (lambda () (tern-mode t)))
+(eval-after-load 'tern
+   '(progn
+      (require 'tern-auto-complete)
+      (tern-ac-setup)))
