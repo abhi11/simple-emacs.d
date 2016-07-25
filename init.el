@@ -28,8 +28,8 @@
 ;;Map yes-or-no to y-or-n
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;;rid of bell
-(setq visible-bell t)
+;;rid of ringing bell
+(setq ring-bell-function 'ignore)
 
 ;;delete selection mode
 (delete-selection-mode 1)
