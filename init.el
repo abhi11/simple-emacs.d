@@ -37,6 +37,8 @@
 ;;show matching parens
 (show-paren-mode t)
 
+;; revert mode on
+(global-auto-revert-mode 1)
 ;;keep all backup files at one place
 (setq backup-directory-alist
       `((".*" . ,"~/.emacs.d/backups")))
@@ -86,8 +88,11 @@
 	 ("\\.kv\\'". python-mode)
 	 ("\\.html?\\'" . web-mode)
 	 ("\\.go'" . go-mode))
+	 ;;("\\.swift'" . swift-mode))
        auto-mode-alist))
 
+;; For swift
+;; (add-to-list 'flycheck-checkers 'swift)
 
 ;;;;;;; Go setup ;;;;;;;
 
@@ -105,10 +110,13 @@
 	    (local-set-key (kbd "M-.") 'godef-jump)
 	    (add-hook 'before-save-hook 'gofmt-before-save)
 	    (local-set-key (kbd "C-c C-f") 'gofmt)
+	    (setq gofmt-command "goimports")
 	    ;; Customize compile command to run go build
 	    (if (not (string-match "go" compile-command))
 		(set (make-local-variable 'compile-command)
-		     "go generate && go build -v && go test -v && go vet"))))
+		     "zsh -c \"source ~/.zshrc; go generate && go build -v && go test -v && go vet\""))
+	    (load-file "/home/bhatta/work-fun/workspace/gospace/src/golang.org/x/tools/cmd/oracle/oracle.el")
+	    ))
 
 ;; JavaScript Setup
 (add-to-list 'load-path "~/.emacs.d/elpa/js2-mode-20151105.355")
@@ -124,6 +132,19 @@
 
 (add-hook 'js-mode-hook (lambda () (tern-mode t)))
 (eval-after-load 'tern
-   '(progn
-      (require 'tern-auto-complete)
-      (tern-ac-setup)))
+  '(progn
+     (require 'tern-auto-complete)
+     (tern-ac-setup)))
+
+;; Angular JS support
+(defun start-angular-mode ()
+  "Call angular mode, when called"
+  (interactive)
+  (add-to-list 'load-path "~/work-fun/angularjs-mode")
+  (add-to-list 'yas-snippet-dirs "~/work-fun/angularjs-mode/snippets")
+  (add-to-list 'ac-dictionary-directories "~/work-fun/angularjs-mode/ac-dict")
+  (load-file "~/work-fun/angularjs-mode/angular-mode.el")
+  (load-file "~/work-fun/angularjs-mode/angular-html-mode.el")
+  (add-to-list 'ac-modes 'angular-mode)
+  (add-to-list 'ac-modes 'angular-html-mode)
+  )
