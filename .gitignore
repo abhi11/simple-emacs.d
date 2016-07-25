@@ -1,3 +1,4 @@
+session*
 backups/
 auto-save-list/
 *.elc
