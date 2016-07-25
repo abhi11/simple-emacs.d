@@ -97,9 +97,9 @@
 ;;;;;;; Go setup ;;;;;;;
 
 ;; Set GOPATH and exec-path for go binaries
-(setenv "GOPATH" "/home/bhatta/work-fun/workspace/gospace")
+(setenv "GOPATH" "/Users/abhishek.bh/workspace/gospace")
 (setq exec-path (cons "/usr/local/go/bin" exec-path))
-(setq exec-path (cons "/home/bhatta/work-fun/workspace/gospace/bin" exec-path))
+(setq exec-path (cons "/Users/abhishek.bh/workspace/gospace/bin" exec-path))
 
 (add-to-list 'load-path "~/.emacs.d/elpa/company-go-20150903.1944")
 (add-hook 'go-mode-hook 'company-mode)
@@ -115,7 +115,7 @@
 	    (if (not (string-match "go" compile-command))
 		(set (make-local-variable 'compile-command)
 		     "zsh -c \"source ~/.zshrc; go generate && go build -v && go test -v && go vet\""))
-	    (load-file "/home/bhatta/work-fun/workspace/gospace/src/golang.org/x/tools/cmd/oracle/oracle.el")
+	    (load-file "/Users/abhishek.bh/workspace/gospace/src/golang.org/x/tools/cmd/oracle/oracle.el")
 	    ))
 
 ;; JavaScript Setup
