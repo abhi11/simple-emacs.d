@@ -11,7 +11,7 @@
 ;;(setq debug-on-error t)
 
 ;;full screen
-(set-frame-parameter nil 'fullscreen 'fullboth)
+;;(set-frame-parameter nil 'fullscreen 'fullboth)
 
 ;;For starting-up without the startup message
 (setq inhibit-startup-message t)
@@ -77,6 +77,7 @@
 ;; Splitting pop-up vertically
 (setq split-height-threshold nil)
 (setq split-width-threshold 0)
+(set-face-attribute 'default (selected-frame) :height 130)
 
 ;;Appending auto-mode-alist with other extensions
 (setq auto-mode-alist
