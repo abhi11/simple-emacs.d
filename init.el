@@ -37,6 +37,9 @@
 ;;show matching parens
 (show-paren-mode t)
 
+;; show column number as well
+(column-number-mode)
+
 ;; revert mode on
 (global-auto-revert-mode 1)
 ;;keep all backup files at one place
@@ -79,6 +82,8 @@
 (setq split-width-threshold 0)
 (set-face-attribute 'default (selected-frame) :height 130)
 
+(elpy-enable)
+
 ;;Appending auto-mode-alist with other extensions
 (setq auto-mode-alist
       (append
@@ -87,6 +92,7 @@
 	 ("\\.md\\'" . markdown-mode)
 	 ("\\.markdown\\'" . markdown-mode)
 	 ("\\.kv\\'". python-mode)
+	 ("\\.py\\'". python-mode)
 	 ("\\.html?\\'" . web-mode)
 	 ("\\.go'" . go-mode))
 	 ;;("\\.swift'" . swift-mode))
@@ -98,9 +104,9 @@
 ;;;;;;; Go setup ;;;;;;;
 
 ;; Set GOPATH and exec-path for go binaries
-(setenv "GOPATH" "/Users/abhishek.bh/workspace/gospace")
+(setenv "GOPATH" "/Users/bhatta/workspace/gospace")
 (setq exec-path (cons "/usr/local/go/bin" exec-path))
-(setq exec-path (cons "/Users/abhishek.bh/workspace/gospace/bin" exec-path))
+(setq exec-path (cons "/Users/bhatta/workspace/gospace/bin" exec-path))
 
 (add-to-list 'load-path "~/.emacs.d/elpa/company-go-20150903.1944")
 (add-hook 'go-mode-hook 'company-mode)
@@ -116,7 +122,7 @@
 	    (if (not (string-match "go" compile-command))
 		(set (make-local-variable 'compile-command)
 		     "zsh -c \"source ~/.zshrc; go generate && go build -v && go test -v && go vet\""))
-	    (load-file "/Users/abhishek.bh/workspace/gospace/src/golang.org/x/tools/cmd/oracle/oracle.el")
+	    (load-file "/Users/bhatta/workspace/gospace/src/golang.org/x/tools/cmd/oracle/oracle.el")
 	    ))
 
 ;; JavaScript Setup
@@ -149,3 +155,35 @@
   (add-to-list 'ac-modes 'angular-mode)
   (add-to-list 'ac-modes 'angular-html-mode)
   )
+
+;; Python setup
+(setq exec-path (cons "/usr/local/bin" exec-path))
+(add-to-list 'load-path "~/.emacs.d/elpa/elpy-20170701.1412")
+(add-to-list 'load-path "~/.emacs.d/elpa/py-autopep8-20160925.352")
+(add-to-list 'load-path "~/.emacs.d/elpa/flycheck-20170902.312")
+(add-to-list 'load-path "~/.emacs.d/elpa/company-jedi-20151216.1921")
+
+;;(add-hook 'python-mode-hook 'elpy-mode)
+(require 'py-autopep8)
+(require 'flycheck)
+;;(setq elpy-rpc-backend "jedi")
+(add-hook 'python-mode 'elpy-mode)
+(add-hook 'elpy-mode-hook 'flycheck-mode)
+(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+(add-hook 'elpy-mode-hook 'my/python-mode-hook)
+(defun my/python-mode-hook ()
+  (add-to-list 'company-backends 'company-jedi))
+
+(add-hook 'elpy-mode-hook 'my/python-mode-hook)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
